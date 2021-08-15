@@ -48,7 +48,6 @@ const karatsuba = (x, y) => {
   const bd = karatsuba(b, d);
   const adbc = karatsuba(a + b, c + d) - ac - bd;
 
-  // Todo fill in method
   return Math.pow(10, n * 2) * ac + Math.pow(10, n) * adbc + bd;
 };
 
