@@ -33,11 +33,27 @@ const multiply = (x, y) => {
 const karatsuba = (x, y) => {
   if (x < 10 && y < 10) return x * y;
 
+  const xLen = String(x).length;
+  const yLen = String(y).length;
+  const n = Math.max(xLen, yLen);
+  const factor = Math.pow(10, Math.round(n / 2));
+
+  const a = Math.floor(x / factor);
+  const b = x % factor;
+
+  const c = Math.floor(y / factor);
+  const d = y % factor;
+
+  const ac = karatsuba(a, c);
+  const bd = karatsuba(b, d);
+  const adbc = karatsuba(a + b, c + d) - ac - bd;
+
   // Todo fill in method
-  return x * y;
+  return Math.pow(10, n) * ac + factor * adbc + bd;
 };
 
 const testCases = [
+  [1234, 5678],
   [
     3141592653589793238462643383279502884197169399375105820974944592,
     2718281828459045235360287471352662497757247093699959574966967627,
@@ -49,6 +65,6 @@ testCases.forEach((testCase) => {
     `Result for ${testCase[0]} * ${testCase[1]} is ${
       testCase[0] * testCase[1]
     } and algo answer is: `,
-    multiply(testCase[0], testCase[1])
+    karatsuba(testCase[0], testCase[1])
   );
 });
