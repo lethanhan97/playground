@@ -35,7 +35,7 @@ const karatsuba = (x, y) => {
 
   const xLen = String(x).length;
   const yLen = String(y).length;
-  const n = Math.round(Math.max(xLen, yLen) / 2);
+  const n = Math.ceil(Math.max(xLen, yLen) / 2); // The devil lies in the details
   const factor = Math.pow(10, n);
 
   const a = Math.floor(x / Math.pow(10, n));
