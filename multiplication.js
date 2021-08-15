@@ -35,13 +35,13 @@ const karatsuba = (x, y) => {
 
   const xLen = String(x).length;
   const yLen = String(y).length;
-  const n = Math.max(xLen, yLen);
-  const factor = Math.pow(10, Math.round(n / 2));
+  const n = Math.round(Math.max(xLen, yLen) / 2);
+  const factor = Math.pow(10, n);
 
-  const a = Math.floor(x / factor);
+  const a = Math.floor(x / Math.pow(10, n));
   const b = x % factor;
 
-  const c = Math.floor(y / factor);
+  const c = Math.floor(y / Math.pow(10, n));
   const d = y % factor;
 
   const ac = karatsuba(a, c);
@@ -49,11 +49,14 @@ const karatsuba = (x, y) => {
   const adbc = karatsuba(a + b, c + d) - ac - bd;
 
   // Todo fill in method
-  return Math.pow(10, n) * ac + factor * adbc + bd;
+  return Math.pow(10, n * 2) * ac + Math.pow(10, n) * adbc + bd;
 };
 
 const testCases = [
   [1234, 5678],
+  [3281, 4329],
+  [12345, 5678],
+  [12345, 56789],
   [
     3141592653589793238462643383279502884197169399375105820974944592,
     2718281828459045235360287471352662497757247093699959574966967627,
